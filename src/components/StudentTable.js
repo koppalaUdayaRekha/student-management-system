@@ -1,24 +1,29 @@
 import React from "react";
 
-function StudentTable({ students, deleteStudent, setEditingStudent }) {
+function StudentTable({
+students,
+deleteStudent,
+setEditingStudent,
+setSortField,
+setSortOrder,
+sortOrder
+}){
 
-return (
+const sort=(field)=>{
+setSortField(field)
+setSortOrder(sortOrder==="asc"?"desc":"asc")
+}
 
-<table
-border="1"
-cellPadding="10"
-style={{
-margin:"auto",
-background:"white"
-}}
->
+return(
+
+<table border="1" cellPadding="10" style={{margin:"auto",background:"white"}}>
 
 <thead style={{background:"#40739e",color:"white"}}>
 
 <tr>
-<th>Name</th>
+<th onClick={()=>sort("name")} style={{cursor:"pointer"}}>Name</th>
 <th>Email</th>
-<th>Age</th>
+<th onClick={()=>sort("age")} style={{cursor:"pointer"}}>Age</th>
 <th>Actions</th>
 </tr>
 
@@ -38,11 +43,11 @@ background:"white"
 <button
 onClick={()=>setEditingStudent(student)}
 style={{
-marginRight:"5px",
 background:"#44bd32",
 color:"white",
 border:"none",
-padding:"5px"
+padding:"5px",
+marginRight:"5px"
 }}
 >
 Edit

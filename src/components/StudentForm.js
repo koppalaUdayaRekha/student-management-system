@@ -1,70 +1,63 @@
-import React, { useState, useEffect } from "react";
+import React,{useState,useEffect} from "react"
 
-function StudentForm({ addStudent, updateStudent, editingStudent }) {
+function StudentForm({addStudent,updateStudent,editingStudent}){
 
-const [student, setStudent] = useState({
-name: "",
-email: "",
-age: ""
-});
-
-useEffect(() => {
-if (editingStudent) {
-setStudent(editingStudent);
-}
-}, [editingStudent]);
-
-const handleChange = (e) => {
-setStudent({
-...student,
-[e.target.name]: e.target.value
-});
-};
-
-const validateEmail = (email) => {
-return /\S+@\S+\.\S+/.test(email);
-};
-
-const handleSubmit = (e) => {
-
-e.preventDefault();
-
-if (!student.name || !student.email || !student.age) {
-alert("All fields are required");
-return;
-}
-
-if (!validateEmail(student.email)) {
-alert("Enter valid email");
-return;
-}
-
-if (editingStudent) {
-updateStudent(student);
-} else {
-addStudent(student);
-}
-
-setStudent({
+const [student,setStudent]=useState({
 name:"",
 email:"",
 age:""
-});
+})
 
-};
+useEffect(()=>{
+if(editingStudent){
+setStudent(editingStudent)
+}
+},[editingStudent])
 
-return (
+const handleChange=(e)=>{
+setStudent({
+...student,
+[e.target.name]:e.target.value
+})
+}
 
-<div style={{marginBottom:"20px"}}>
+const validateEmail=(email)=>{
+return /\S+@\S+\.\S+/.test(email)
+}
 
-<form onSubmit={handleSubmit}>
+const handleSubmit=(e)=>{
+
+e.preventDefault()
+
+if(!student.name || !student.email || !student.age){
+alert("All fields required")
+return
+}
+
+if(!validateEmail(student.email)){
+alert("Invalid email")
+return
+}
+
+if(editingStudent){
+updateStudent(student)
+}else{
+addStudent(student)
+}
+
+setStudent({name:"",email:"",age:""})
+}
+
+return(
+
+<form onSubmit={handleSubmit} style={{margin:"20px"}}>
 
 <input
 name="name"
 placeholder="Name"
 value={student.name}
 onChange={handleChange}
-style={{margin:"5px",padding:"5px"}}
+style={{padding:"6px",marginRight:"5px"}}
 />
 
 <input
@@ -72,7 +65,7 @@ name="email"
 placeholder="Email"
 value={student.email}
 onChange={handleChange}
-style={{margin:"5px",padding:"5px"}}
+style={{padding:"6px",marginRight:"5px"}}
 />
 
 <input
@@ -81,21 +74,17 @@ type="number"
 placeholder="Age"
 value={student.age}
 onChange={handleChange}
-style={{margin:"5px",padding:"5px"}}
+style={{padding:"6px",marginRight:"5px"}}
 />
 
-<button type="submit" style={{margin:"5px",padding:"5px"}}>
-
-{editingStudent ? "Update Student" : "Add Student"}
-
+<button type="submit">
+{editingStudent?"Update":"Add Student"}
 </button>
 
 </form>
 
-</div>
-
-);
+)
 
 }
 
-export default StudentForm;
+export default StudentForm
